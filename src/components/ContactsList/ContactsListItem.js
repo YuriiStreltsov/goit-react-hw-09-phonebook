@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
-function ContactsListItem({ items, onDeleteContact, onEditContact }) {
+function ContactsListItem({ items, onDeleteContact }) {
   return (
     <>
       <TransitionGroup component={null}>
@@ -19,7 +19,7 @@ function ContactsListItem({ items, onDeleteContact, onEditContact }) {
                 </p>
               </div>
               <div className={s.options}>
-                <Button
+                {/* <Button
                   style={{ width: 80 }}
                   variant="contained"
                   color="primary"
@@ -27,7 +27,7 @@ function ContactsListItem({ items, onDeleteContact, onEditContact }) {
                   onClick={() => onEditContact()}
                 >
                   Edit
-                </Button>
+                </Button> */}
                 <Button
                   style={{ marginLeft: '5px', width: 95 }}
                   variant="contained"
