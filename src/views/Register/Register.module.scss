@@ -1,0 +1,21 @@
+.RegisterTitle {
+  text-align: center;
+}
+
+.RegisterForm {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  background-color: #fff;
+}
+
+.labelTitle {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.input {
+  width: 200px;
+  margin-bottom: 15px;
+}

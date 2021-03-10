@@ -1,0 +1,21 @@
+.LoginTitle {
+  text-align: center;
+}
+
+.LoginForm {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  background-color: #ffffff;
+}
+
+.labelTitle {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.input {
+  width: 200px;
+  margin-bottom: 15px;
+}

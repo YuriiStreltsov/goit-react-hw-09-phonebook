@@ -1,0 +1,48 @@
+.item {
+  display: flex;
+  align-items: center;
+
+  &:not(:last-child) {
+    margin-bottom: 5px;
+  }
+
+  &::before {
+    content: '';
+    width: 15px;
+    height: 3px;
+    margin-right: 10px;
+    background-color: rgb(12, 252, 4);
+  }
+}
+
+// Animation
+.enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.enterActive {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 250ms, transform 250ms linear;
+}
+
+.exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.exitActive {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 250ms, transform 250ms linear;
+}
+
+.content {
+  font-size: 18px;
+}
+
+.options {
+  margin-left: auto;
+  border: none;
+}
