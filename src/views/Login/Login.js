@@ -8,7 +8,7 @@ import { authOperations } from '../../redux/auth';
 import { routes } from '../../routes';
 import { showNotify } from '../../components';
 
-export default function LogIn(history) {
+export default function LogIn({ history }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
