@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import shortid from 'shortid';
-import PropTypes from 'prop-types';
 import s from './FormAddContact.module.scss';
 import showNotify from '../Notify/Notify';
 import contactsOperations from '../../redux/contacts/contacts-operations';
@@ -92,7 +91,3 @@ export default function FormAddContact() {
     </>
   );
 }
-
-FormAddContact.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};

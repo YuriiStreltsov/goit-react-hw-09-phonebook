@@ -19,15 +19,15 @@ function ContactsListItem({ items, onDeleteContact }) {
                 </p>
               </div>
               <div className={s.options}>
-                {/* <Button
+                <Button
                   style={{ width: 80 }}
                   variant="contained"
                   color="primary"
                   startIcon={<EditIcon />}
-                  onClick={() => onEditContact()}
+                  onClick={() => {}}
                 >
                   Edit
-                </Button> */}
+                </Button>
                 <Button
                   style={{ marginLeft: '5px', width: 95 }}
                   variant="contained"
@@ -42,7 +42,11 @@ function ContactsListItem({ items, onDeleteContact }) {
           </CSSTransition>
         ))}
       </TransitionGroup>
-      {items.length === 0 && <p>Contacts not found</p>}
+      {items.length === 0 && (
+        <li>
+          <p>Contacts not found</p>
+        </li>
+      )}
     </>
   );
 }

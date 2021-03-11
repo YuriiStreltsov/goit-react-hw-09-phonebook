@@ -1,11 +1,14 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import s from './Header.module.scss';
-
-import { connect } from 'react-redux';
 import { authSelectors, authOperations } from '../../redux/auth';
+import { useSelector, useDispatch } from 'react-redux';
 
-function Header({ isAuthenticated, userName, onLogout }) {
+export default function Header() {
+  const isAuthenticated = useSelector(authSelectors.getIsAuthenticated);
+  const userName = useSelector(authSelectors.getUsername);
+  const dispatch = useDispatch();
+  const onLogout = () => dispatch(authOperations.logOut());
   return (
     <header className={s.Header}>
       <div className={s.wrapper}>
@@ -27,14 +30,3 @@ function Header({ isAuthenticated, userName, onLogout }) {
     </header>
   );
 }
-
-const mapStateToProps = state => ({
-  isAuthenticated: authSelectors.getIsAuthenticated(state),
-  userName: authSelectors.getUsername(state),
-});
-
-const mapDispatchToProps = {
-  onLogout: authOperations.logOut,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);

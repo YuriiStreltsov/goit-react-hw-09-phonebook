@@ -1,17 +1,12 @@
+import './index.css';
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Container from './components/Container/Container';
-import './index.css';
+import { Container, PrivateRoute, PublicRoute } from './components';
 import { ToastContainer } from 'react-toastify';
-import Contacts from './views/Contacts/Contacts';
+import { Contacts, HomePage, Register, Login } from './views';
 import { routes } from './routes';
-import HomePage from './views/HomePage/HomePage';
-import Register from './views/Register/Register';
-import LogIn from './views/Login/Login';
 import { connect } from 'react-redux';
 import { authOperations } from './redux/auth';
-import PrivateRoute from './components/PrivateRoute';
-import PublicRoute from './components/PublicRoute';
 
 class App extends Component {
   componentDidMount() {
@@ -31,7 +26,7 @@ class App extends Component {
             />
             <PublicRoute
               path={routes.login}
-              component={LogIn}
+              component={Login}
               redirectTo={routes.contacts}
               restricted
             />

@@ -1,62 +1,47 @@
-import { Component } from 'react';
 import ContactsListItem from './ContactsListItem';
-import { connect } from 'react-redux';
 import operations from '../../redux/contacts/contacts-operations';
 import Loader from 'react-loader-spinner';
-import Modal from '../Modal/Modal';
-import FormAddContact from '../FormAddContact/FormAddContact';
+// import Modal from '../Modal/Modal';
+import { FormAddContact } from '../../components';
 import selectors from '../../redux/contacts/contacts-selectors';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-class ContactsList extends Component {
-  state = {
-    showModal: false,
-  };
+export default function ContactsList() {
+  const items = useSelector(selectors.getFilteredContacts);
+  const isLoading = useSelector(selectors.getLoading);
 
-  componentDidMount() {
-    this.props.fetchContacts();
-  }
+  const dispatch = useDispatch();
+  const onDeleteContact = id => dispatch(operations.deleteContact(id));
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
-  };
+  const fetchContacts = () => dispatch(operations.fetchContacts());
 
-  render() {
-    const { items, isLoading, onDeleteContact } = this.props;
-    const { showModal } = this.state;
-    return (
-      <>
-        <ul className="ContactsList">
-          <Loader
-            visible={isLoading}
-            className="Loader"
-            type="TailSpin"
-            color="#00BFFF"
-            width={150}
-            height={150}
-          />
-          {isLoading && <p className="Loader-text">Loadind...</p>}
-          <ContactsListItem items={items} onDeleteContact={onDeleteContact} />
-        </ul>
-        {showModal && (
-          <Modal onClose={this.toggleModal}>
-            <FormAddContact onSave={this.toggleModal} />
-          </Modal>
-        )}
-      </>
-    );
-  }
+  useEffect(() => {
+    console.log('render');
+    return fetchContacts();
+  }, []);
+
+  return (
+    <>
+      <Loader
+        visible={isLoading}
+        className="Loader"
+        type="TailSpin"
+        color="#00BFFF"
+        width={150}
+        height={150}
+      />
+      {isLoading && <p className="Loader-text">Loadind...</p>}
+      <ul className="ContactsList">
+        <ContactsListItem items={items} onDeleteContact={onDeleteContact} />
+      </ul>
+    </>
+  );
 }
 
-const mapStateToProps = state => ({
-  items: selectors.getFilteredContacts(state),
-  isLoading: selectors.getLoading(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  onDeleteContact: id => dispatch(operations.deleteContact(id)),
-  fetchContacts: () => dispatch(operations.fetchContacts()),
-  onEditContact: contact => dispatch(operations.editContact(contact)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(ContactsList);
+// const mapDispatchToProps = dispatch => ({
+//   onDeleteContact: id => dispatch(operations.deleteContact(id)),
+//   fetchContacts: () => dispatch(operations.fetchContacts()),
+//   onEditContact: contact => dispatch(operations.editContact(contact)),
+// });
+// export default connect(mapStateToProps, mapDispatchToProps)(ContactsList);
