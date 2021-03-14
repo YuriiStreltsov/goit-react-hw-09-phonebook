@@ -73,6 +73,7 @@ export default function FormAddContact({ onCloseModal }) {
           value={name}
           onChange={handleChangeName}
           className={s.input}
+          autoFocus
         />
         <label htmlFor={inputNumberId} className={s.labelTitle}>
           Number:
