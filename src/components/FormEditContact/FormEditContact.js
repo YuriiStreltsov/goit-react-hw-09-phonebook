@@ -12,7 +12,6 @@ export default function FormEditContact({ onCloseModal }) {
   const [name, setName] = useState(editContact.name);
   const [number, setNumber] = useState(editContact.number);
 
-  const items = useSelector(contactsSelectors.getAllContacts);
   const dispatch = useDispatch();
 
   const onSubmitEdit = contact =>
@@ -37,11 +36,6 @@ export default function FormEditContact({ onCloseModal }) {
     e.preventDefault();
     if (name.length === 0 || number.length === 0) {
       return showNotify('', 'Fields cannot be empty');
-    }
-    const unavailableName = items.find(item => item.name === name);
-    if (unavailableName) {
-      showNotify(name, 'is already in contacts');
-      return;
     }
 
     const contact = {
