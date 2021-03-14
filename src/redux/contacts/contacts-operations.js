@@ -40,7 +40,10 @@ const editContact = contact => async dispatch => {
   dispatch(contactsActions.editContactRequest());
 
   try {
-    const response = await axios.patch(`/contacts/${contact.id}`, contact);
+    const response = await axios.patch(`/contacts/${contact.id}`, {
+      name: contact.name,
+      number: contact.number,
+    });
     dispatch(contactsActions.editContactSuccess(response.data));
   } catch (error) {
     dispatch(contactsActions.editContactError(error.message));

@@ -1,11 +1,11 @@
 import { DebounceInput } from 'react-debounce-input';
 import s from './Filter.module.scss';
-import { contactsActions } from '../../redux/contacts';
-import selectors from '../../redux/contacts/contacts-selectors';
+import { contactsActions, contactsSelectors } from '../../redux/contacts';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Filter() {
-  const value = useSelector(selectors.getFilter);
+  const value = useSelector(contactsSelectors.getFilter);
+
   const dispatch = useDispatch();
   const onChange = e => dispatch(contactsActions.changeFilter(e.target.value));
   return (

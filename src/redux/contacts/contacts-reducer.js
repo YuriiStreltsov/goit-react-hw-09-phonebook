@@ -36,8 +36,13 @@ const filter = createReducer('', {
   [contactsActions.changeFilter]: (_, { payload }) => payload,
 });
 
+const editContact = createReducer(null, {
+  [contactsActions.onClickEditBtn]: (_, { payload }) => payload,
+});
+
 export default combineReducers({
   items,
   filter,
   loading,
+  editContact,
 });

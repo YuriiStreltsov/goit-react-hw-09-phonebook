@@ -1,24 +1,35 @@
 import ContactsListItem from './ContactsListItem';
-import operations from '../../redux/contacts/contacts-operations';
 import Loader from 'react-loader-spinner';
-// import Modal from '../Modal/Modal';
-import { FormAddContact } from '../../components';
-import selectors from '../../redux/contacts/contacts-selectors';
-import { useEffect } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import {
+  contactsActions,
+  contactsOperations,
+  contactsSelectors,
+} from '../../redux/contacts';
+
+import { Modal, FormEditContact } from '../../components';
 
 export default function ContactsList() {
-  const items = useSelector(selectors.getFilteredContacts);
-  const isLoading = useSelector(selectors.getLoading);
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModal = useCallback(() => {
+    setShowModal(prevShowModal => !prevShowModal);
+  }, []);
+
+  const items = useSelector(contactsSelectors.getFilteredContacts);
+  const isLoading = useSelector(contactsSelectors.getLoading);
 
   const dispatch = useDispatch();
-  const onDeleteContact = id => dispatch(operations.deleteContact(id));
-
-  const fetchContacts = () => dispatch(operations.fetchContacts());
+  const onDeleteContact = id => dispatch(contactsOperations.deleteContact(id));
+  const fetchContacts = () => dispatch(contactsOperations.fetchContacts());
+  const onClickEditBtn = id => {
+    toggleModal();
+    dispatch(contactsActions.onClickEditBtn(id));
+  };
 
   useEffect(() => {
-    console.log('render');
-    return fetchContacts();
+    fetchContacts();
   }, []);
 
   return (
@@ -33,15 +44,17 @@ export default function ContactsList() {
       />
       {isLoading && <p className="Loader-text">Loadind...</p>}
       <ul className="ContactsList">
-        <ContactsListItem items={items} onDeleteContact={onDeleteContact} />
+        <ContactsListItem
+          items={items}
+          onDeleteContact={onDeleteContact}
+          onClickEditBtn={onClickEditBtn}
+        />
       </ul>
+      {showModal && (
+        <Modal onClose={toggleModal}>
+          <FormEditContact onCloseModal={toggleModal} />
+        </Modal>
+      )}
     </>
   );
 }
-
-// const mapDispatchToProps = dispatch => ({
-//   onDeleteContact: id => dispatch(operations.deleteContact(id)),
-//   fetchContacts: () => dispatch(operations.fetchContacts()),
-//   onEditContact: contact => dispatch(operations.editContact(contact)),
-// });
-// export default connect(mapStateToProps, mapDispatchToProps)(ContactsList);

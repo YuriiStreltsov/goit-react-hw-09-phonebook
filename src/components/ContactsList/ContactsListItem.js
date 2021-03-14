@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
-function ContactsListItem({ items, onDeleteContact }) {
+function ContactsListItem({ items, onDeleteContact, onClickEditBtn }) {
   return (
     <>
       <TransitionGroup component={null}>
@@ -24,7 +24,7 @@ function ContactsListItem({ items, onDeleteContact }) {
                   variant="contained"
                   color="primary"
                   startIcon={<EditIcon />}
-                  onClick={() => {}}
+                  onClick={() => onClickEditBtn({ id, name, number })}
                 >
                   Edit
                 </Button>

@@ -5,7 +5,6 @@ import { Container, PrivateRoute, PublicRoute } from './components';
 import { ToastContainer } from 'react-toastify';
 import { Contacts, HomePage, Register, Login } from './views';
 import { routes } from './routes';
-import { connect } from 'react-redux';
 import { authOperations } from './redux/auth';
 import { useDispatch } from 'react-redux';
 
@@ -14,7 +13,7 @@ export default function App() {
 
   const onGetCurrentUser = () => dispatch(authOperations.getCurrentUser());
 
-  useEffect(() => onGetCurrentUser());
+  useEffect(() => onGetCurrentUser(), []);
 
   return (
     <>

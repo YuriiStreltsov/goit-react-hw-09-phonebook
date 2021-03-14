@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import shortid from 'shortid';
 import s from './FormAddContact.module.scss';
 import showNotify from '../Notify/Notify';
 import { contactsOperations, contactsSelectors } from '../../redux/contacts';
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
 
-export default function FormAddContact({ onCloseModal }) {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+export default function FormEditContact({ onCloseModal }) {
+  const editContact = useSelector(contactsSelectors.getEditContact);
+  const [name, setName] = useState(editContact.name);
+  const [number, setNumber] = useState(editContact.number);
 
   const items = useSelector(contactsSelectors.getAllContacts);
   const dispatch = useDispatch();
 
-  const onSubmitAdd = contact =>
-    dispatch(contactsOperations.addContact(contact));
   const onSubmitEdit = contact =>
     dispatch(contactsOperations.editContact(contact));
+
+  const fetchContacts = () => dispatch(contactsOperations.fetchContacts());
 
   const inputNameId = shortid.generate();
   const inputNumberId = shortid.generate();
@@ -32,7 +33,7 @@ export default function FormAddContact({ onCloseModal }) {
     setNumber(value);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     if (name.length === 0 || number.length === 0) {
       return showNotify('', 'Fields cannot be empty');
@@ -44,11 +45,14 @@ export default function FormAddContact({ onCloseModal }) {
     }
 
     const contact = {
+      id: editContact.id,
       name: name,
       number: number,
     };
+    console.log(contact);
+    await onSubmitEdit(contact);
 
-    onSubmitAdd(contact);
+    await fetchContacts();
     onCloseModal();
     resetForm();
   };
@@ -62,7 +66,8 @@ export default function FormAddContact({ onCloseModal }) {
     <>
       <form className={s.PhonebookForm} onSubmit={handleSubmit}>
         <p className={s.text}>
-          To add a contact, fill in the fields below and click the "ADD CONTACT"
+          To add a contact, fill in the fields below and click the "ADIT
+          CONTACT"
         </p>
         <label htmlFor={inputNameId} className={s.labelTitle}>
           Name:
@@ -89,9 +94,9 @@ export default function FormAddContact({ onCloseModal }) {
           type="submit"
           variant="contained"
           color="primary"
-          endIcon={<AddIcon />}
+          endIcon={<EditIcon />}
         >
-          Add contact
+          Edit contact
         </Button>
       </form>
     </>

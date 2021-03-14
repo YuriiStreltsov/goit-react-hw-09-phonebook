@@ -17,6 +17,7 @@ const editContactSuccess = createAction('contacts/editContactSuccess');
 const editContactError = createAction('contacts/editContactError');
 
 const changeFilter = createAction('contacts/changeFilterRequest');
+const onClickEditBtn = createAction('contacts/onClickEditBtnRequest');
 
 export default {
   fetchContactsRequest,
@@ -32,4 +33,5 @@ export default {
   editContactSuccess,
   editContactError,
   changeFilter,
+  onClickEditBtn,
 };
